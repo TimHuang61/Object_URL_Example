@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <button id="btn" class="btn btn-default">Click Me.</button>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                var request = new XMLHttpRequest();
+                request.open('POST', 'http://localhost:56381/files/download', true);
+                request.responseType = 'blob';
+                request.onload = function(e) {
+                    var blob = new Blob([this.response]);
+                    var url = URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = "test.txt";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+                request.send();
+            });
+        });
+    </script>
+
+}
