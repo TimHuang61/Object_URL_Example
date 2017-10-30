@@ -14,7 +14,7 @@
                 request.open('POST', 'http://localhost:56381/files/download', true);
                 request.responseType = 'blob';
                 request.onload = function(e) {
-                    var blob = new Blob([this.response]);
+                    var blob = new Blob([this.response], { type: 'application/octet-stream' });
                     var url = URL.createObjectURL(blob);
                     var a = document.createElement('a');
                     a.href = url;
